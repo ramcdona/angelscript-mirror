@@ -104,6 +104,28 @@ set(ANGELSCRIPT_SOURCE
     ../../source/as_variablescope.cpp
 )
 
+set(ADDON_HEADERS) # Initialize empty list
+set(ADDON_PATH) # Initialize empty list
+foreach(iaddon ${AS_ADDONS})
+    file(GLOB_RECURSE isource "${CMAKE_CURRENT_SOURCE_DIR}/../../../add_on/*/*${iaddon}.cpp")
+    foreach(isrc ${isource})
+        list(APPEND ANGELSCRIPT_SOURCE ${isrc})
+    endforeach()
+
+    file(GLOB_RECURSE iheader "${CMAKE_CURRENT_SOURCE_DIR}/../../../add_on/*/*${iaddon}.h")
+    foreach(ihdr ${iheader})
+        list(APPEND ANGELSCRIPT_HEADERS ${ihdr})
+        list(APPEND ADDON_HEADERS ${ihdr})
+    endforeach()
+
+    # Repeate search again, but this time to extract relative path name.
+    file(GLOB_RECURSE iheader RELATIVE "${CMAKE_CURRENT_SOURCE_DIR}/../../../add_on" "${CMAKE_CURRENT_SOURCE_DIR}/../../../add_on/*/*${iaddon}.h")
+    foreach(ihdr ${iheader})
+        get_filename_component(ipath ${ihdr} DIRECTORY)
+        list(APPEND ADDON_PATH ${ipath})
+    endforeach()
+endforeach()
+
 if(MSVC AND CMAKE_CL_64)
     enable_language(ASM_MASM)
     if(CMAKE_ASM_MASM_COMPILER_WORKS)
@@ -207,6 +229,14 @@ install(FILES
 	DESTINATION include
 	COMPONENT Devel
 )
+
+foreach(iaddon ipath IN ZIP_LISTS ADDON_HEADERS ADDON_PATH)
+	install(FILES
+		${iaddon}
+		DESTINATION include/${ipath}
+		COMPONENT Devel
+	)
+endforeach()
 
 include(CMakePackageConfigHelpers)
 write_basic_package_version_file(
