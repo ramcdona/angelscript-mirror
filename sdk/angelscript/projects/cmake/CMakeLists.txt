@@ -104,6 +104,20 @@ set(ANGELSCRIPT_SOURCE
     ../../source/as_variablescope.cpp
 )
 
+set(ADDON_HEADERS) # Initialize empty list
+foreach(iaddon ${AS_ADDONS})
+    file(GLOB_RECURSE isource "${CMAKE_CURRENT_SOURCE_DIR}/../../../add_on/*/*${iaddon}.cpp")
+    foreach(isrc ${isource})
+        list(APPEND ANGELSCRIPT_SOURCE ${isrc})
+    endforeach()
+
+    file(GLOB_RECURSE iheader "${CMAKE_CURRENT_SOURCE_DIR}/../../../add_on/*/*${iaddon}.h")
+    foreach(ihdr ${iheader})
+        list(APPEND ANGELSCRIPT_HEADERS ${ihdr})
+        list(APPEND ADDON_HEADERS ${ihdr})
+    endforeach()
+endforeach()
+
 if(MSVC AND CMAKE_CL_64)
     enable_language(ASM_MASM)
     if(CMAKE_ASM_MASM_COMPILER_WORKS)
@@ -205,6 +219,14 @@ install(FILES
 	DESTINATION include
 	COMPONENT Devel
 )
+
+foreach(iaddon ${ADDON_HEADERS})
+	install(FILES
+		${iaddon}
+		DESTINATION include
+		COMPONENT Devel
+	)
+endforeach()
 
 include(CMakePackageConfigHelpers)
 write_basic_package_version_file(
