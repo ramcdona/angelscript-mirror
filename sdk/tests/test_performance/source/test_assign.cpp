@@ -3,7 +3,7 @@
 //
 
 #include "utils.h"
-#include "../../add_on/scriptmath/scriptmathcomplex.h"
+#include "../../../add_on/scriptmath/scriptmathcomplex.h"
 
 namespace TestAssign
 {
