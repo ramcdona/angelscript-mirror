@@ -21,10 +21,10 @@ namespace TestString2      { void Test(double *time); }
 namespace TestThisProp     { void Test(double *time); }
 namespace TestVector3      { void Test(double *time); }
 namespace TestAssign       { void Test(double *times); }
-namespace TestArray        { void Test(double *times); }
-namespace TestGlobalVar    { void Test(double *time); }
-namespace TestClassProp    { void Test(double *time); }
-namespace TestRetObj       { void Test(double *times); }
+//namespace TestArray        { void Test(double *times); }
+//namespace TestGlobalVar    { void Test(double *time); }
+//namespace TestClassProp    { void Test(double *time); }
+//namespace TestRetObj       { void Test(double *times); }
 
 const int NUM_TESTS = 25;
 
@@ -48,14 +48,14 @@ double testTimesOrig[NUM_TESTS] =
 0.431,  // Assign.2
 0.236,  // Assign.3
 0.282,  // Assign.4
-0.282,  // Assign.5
-0.551,  // Array.1
-0.231,  // Array.2
-0.139,  // GlobalVar
-0.206,  // ClassProp
-0.845,  // RetObj.1
-0.430,  // RetObj.2
-0.133   // RetObj.3
+0.282//,  // Assign.5
+//0.551,  // Array.1
+//0.231,  // Array.2
+//0.139,  // GlobalVar
+//0.206,  // ClassProp
+//0.845,  // RetObj.1
+//0.430,  // RetObj.2
+//0.133   // RetObj.3
 };
 
 // Times for 2.32.1 WIP (64bit, Intel i7) (localized optimizations)
@@ -78,14 +78,14 @@ double testTimesOrig2[NUM_TESTS] =
 	0.431,  // Assign.2
 	0.236,  // Assign.3
 	0.282,  // Assign.4
-	0.282,  // Assign.5
-	0.551,  // Array.1
-	0.231,  // Array.2
-	0.139,  // GlobalVar
-	0.206,  // ClassProp
-	0.845,  // RetObj.1
-	0.430,  // RetObj.2
-	0.132   // RetObj.3
+	0.282//,  // Assign.5
+//	0.551,  // Array.1
+//	0.231,  // Array.2
+//	0.139,  // GlobalVar
+//	0.206,  // ClassProp
+//	0.845,  // RetObj.1
+//	0.430,  // RetObj.2
+//	0.132   // RetObj.3
 };
 
 double testTimesBest[NUM_TESTS];
@@ -131,10 +131,10 @@ int main(int argc, char **argv)
 		TestThisProp::Test(&testTimes[11]); printf("."); fflush(stdout);
 		TestVector3::Test(&testTimes[12]); printf("."); fflush(stdout);
 		TestAssign::Test(&testTimes[13]); printf("."); fflush(stdout);
-		TestArray::Test(&testTimes[18]); printf("."); fflush(stdout);
-		TestGlobalVar::Test(&testTimes[20]); printf("."); fflush(stdout);
-		TestClassProp::Test(&testTimes[21]); printf("."); fflush(stdout);
-		TestRetObj::Test(&testTimes[22]); printf("."); fflush(stdout);
+//		TestArray::Test(&testTimes[18]); printf("."); fflush(stdout);
+//		TestGlobalVar::Test(&testTimes[20]); printf("."); fflush(stdout);
+//		TestClassProp::Test(&testTimes[21]); printf("."); fflush(stdout);
+//		TestRetObj::Test(&testTimes[22]); printf("."); fflush(stdout);
 
 		for( int t = 0; t < NUM_TESTS; t++ )
 		{
@@ -163,13 +163,13 @@ int main(int argc, char **argv)
 	printf("Assign.3       %.3f    %.3f    %.3f%s\n", testTimesOrig[15], testTimesOrig2[15], testTimesBest[15], testTimesBest[15] < testTimesOrig2[15] ? " +" : " -"); 
 	printf("Assign.4       %.3f    %.3f    %.3f%s\n", testTimesOrig[16], testTimesOrig2[16], testTimesBest[16], testTimesBest[16] < testTimesOrig2[16] ? " +" : " -"); 
 	printf("Assign.5       %.3f    %.3f    %.3f%s\n", testTimesOrig[17], testTimesOrig2[17], testTimesBest[17], testTimesBest[17] < testTimesOrig2[17] ? " +" : " -"); 
-	printf("Array.1        %.3f    %.3f    %.3f%s\n", testTimesOrig[18], testTimesOrig2[18], testTimesBest[18], testTimesBest[18] < testTimesOrig2[18] ? " +" : " -"); 
-	printf("Array.2        %.3f    %.3f    %.3f%s\n", testTimesOrig[19], testTimesOrig2[19], testTimesBest[19], testTimesBest[19] < testTimesOrig2[19] ? " +" : " -"); 
-	printf("GlobalVar      %.3f    %.3f    %.3f%s\n", testTimesOrig[20], testTimesOrig2[20], testTimesBest[20], testTimesBest[20] < testTimesOrig2[20] ? " +" : " -"); 
-	printf("ClassProp      %.3f    %.3f    %.3f%s\n", testTimesOrig[21], testTimesOrig2[21], testTimesBest[21], testTimesBest[21] < testTimesOrig2[21] ? " +" : " -");
-	printf("RetObj.1       %.3f    %.3f    %.3f%s\n", testTimesOrig[22], testTimesOrig2[22], testTimesBest[22], testTimesBest[22] < testTimesOrig2[22] ? " +" : " -");
-	printf("RetObj.2       %.3f    %.3f    %.3f%s\n", testTimesOrig[23], testTimesOrig2[23], testTimesBest[23], testTimesBest[23] < testTimesOrig2[23] ? " +" : " -");
-	printf("RetObj.3       %.3f    %.3f    %.3f%s\n", testTimesOrig[24], testTimesOrig2[24], testTimesBest[24], testTimesBest[24] < testTimesOrig2[24] ? " +" : " -");
+//	printf("Array.1        %.3f    %.3f    %.3f%s\n", testTimesOrig[18], testTimesOrig2[18], testTimesBest[18], testTimesBest[18] < testTimesOrig2[18] ? " +" : " -");
+//	printf("Array.2        %.3f    %.3f    %.3f%s\n", testTimesOrig[19], testTimesOrig2[19], testTimesBest[19], testTimesBest[19] < testTimesOrig2[19] ? " +" : " -");
+//	printf("GlobalVar      %.3f    %.3f    %.3f%s\n", testTimesOrig[20], testTimesOrig2[20], testTimesBest[20], testTimesBest[20] < testTimesOrig2[20] ? " +" : " -");
+//	printf("ClassProp      %.3f    %.3f    %.3f%s\n", testTimesOrig[21], testTimesOrig2[21], testTimesBest[21], testTimesBest[21] < testTimesOrig2[21] ? " +" : " -");
+//	printf("RetObj.1       %.3f    %.3f    %.3f%s\n", testTimesOrig[22], testTimesOrig2[22], testTimesBest[22], testTimesBest[22] < testTimesOrig2[22] ? " +" : " -");
+//	printf("RetObj.2       %.3f    %.3f    %.3f%s\n", testTimesOrig[23], testTimesOrig2[23], testTimesBest[23], testTimesBest[23] < testTimesOrig2[23] ? " +" : " -");
+//	printf("RetObj.3       %.3f    %.3f    %.3f%s\n", testTimesOrig[24], testTimesOrig2[24], testTimesBest[24], testTimesBest[24] < testTimesOrig2[24] ? " +" : " -");
 
 	printf("--------------------------------------------\n");
 	printf("Press any key to quit.\n");
