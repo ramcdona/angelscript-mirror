@@ -1,7 +1,8 @@
 #include "utils.h"
 #include "scriptdictionary.h"
 #include "scriptmathcomplex.h"
-#include <malloc.h> // gnuc: memalign
+// #include <malloc.h> // gnuc: memalign
+#include <stdlib.h>
 
 // olc::vX2d - A generic 2D vector type
 // https://github.com/OneLoneCoder/olcPixelGameEngine/blob/master/olcPixelGameEngine.h#L608-L671
@@ -2403,9 +2404,12 @@ __attribute__((aligned(16)))
 #endif
 ;
 
-#if !defined(_WIN32) && (defined(__psp2__) || defined(__CELLOS_LV2__) || defined(__GNUC__))
+#if !defined(_WIN32) && (defined(__psp2__) || defined(__CELLOS_LV2__) || defined(__GNUC__)) && !defined(__clang__)
 	#define _aligned_malloc(s, a) memalign(a, s)
 	#define _aligned_free free
+#elif !defined(_WIN32) && defined(__clang__)
+    #define _aligned_malloc(s, a) aligned_alloc(s, a)
+    #define _aligned_free free
 #endif
 
 //these do lambda magic to allow the definition of wrappers inline
