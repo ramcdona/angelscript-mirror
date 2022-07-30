@@ -148,7 +148,7 @@ bool Test()
 		RegisterStdString(engine);
 #ifndef AS_MAX_PORTABILITY
 		engine->RegisterObjectMethod("string", "string toUtf8() const", asFUNCTION(toUtf8), asCALL_CDECL_OBJLAST);
-#ifdef AS_PTR_SIZE == 1
+#if AS_PTR_SIZE == 1
 		engine->RegisterObjectMethod("string", "uint get_cstr() const property", asFUNCTION(cstr), asCALL_CDECL_OBJLAST);
 		engine->RegisterGlobalFunction("int sqlite3_exec(uint, uint)", asFUNCTION(sqlite3_exec), asCALL_CDECL);
 #else
@@ -157,7 +157,7 @@ bool Test()
 #endif
 #else
 		engine->RegisterObjectMethod("string", "string toUtf8() const", WRAP_FN(toUtf8), asCALL_GENERIC);
-#ifdef AS_PTR_SIZE == 1
+#if AS_PTR_SIZE == 1
 		engine->RegisterObjectMethod("string", "uint get_cstr() const property", WRAP_FN(cstr), asCALL_GENERIC);
 		engine->RegisterGlobalFunction("int sqlite3_exec(uint, uint)", WRAP_FN(sqlite3_exec), asCALL_GENERIC);
 #else
