@@ -226,7 +226,11 @@ bool Test()
 	// http://www.gamedev.net/topic/604890-dynamic-reloading-script/page__st__20
 	{
 		engine = asCreateScriptEngine(ANGELSCRIPT_VERSION);
+#ifndef AS_MAX_PORTABILITY
 		engine->SetMessageCallback(asMETHOD(COutStream,Callback), &out, asCALL_THISCALL);
+#else
+		engine->SetMessageCallback(WRAP_MFN(COutStream,Callback), &out, asCALL_GENERIC);
+#endif
 		RegisterScriptString(engine);
 		RegisterScriptArray(engine, false);
 
