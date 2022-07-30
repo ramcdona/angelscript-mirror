@@ -183,8 +183,11 @@ bool Test()
 	{
 		engine = asCreateScriptEngine();
 		engine->SetEngineProperty(asEP_ALLOW_UNSAFE_REFERENCES, 1);
+#ifndef AS_MAX_PORTABILITY
 		engine->SetMessageCallback(asMETHOD(COutStream, Callback), &out, asCALL_THISCALL);
-
+#else
+		engine->SetMessageCallback(WRAP_MFN(COutStream, Callback), &out, asCALL_GENERIC);
+#endif
 		RegisterStdString(engine);
 		RegisterExceptionRoutines(engine);
 
