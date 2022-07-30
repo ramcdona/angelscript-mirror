@@ -170,24 +170,6 @@ add_executable(
         ../../source/testvirtualinheritance.cpp
         ../../source/testvirtualmethod.cpp
         ../../source/utils.cpp
-        ../../../../add_on/contextmgr/contextmgr.cpp
-        ../../../../add_on/datetime/datetime.cpp
-        ../../../../add_on/debugger/debugger.cpp
-        ../../../../add_on/scriptany/scriptany.cpp
-        ../../../../add_on/scriptarray/scriptarray.cpp
-        ../../../../add_on/scriptbuilder/scriptbuilder.cpp
-        ../../../../add_on/scriptdictionary/scriptdictionary.cpp
-        ../../../../add_on/scriptfile/scriptfile.cpp
-        ../../../../add_on/scriptfile/scriptfilesystem.cpp
-        ../../../../add_on/scriptgrid/scriptgrid.cpp
-        ../../../../add_on/scripthandle/scripthandle.cpp
-        ../../../../add_on/scripthelper/scripthelper.cpp
-        ../../../../add_on/scriptmath/scriptmath.cpp
-        ../../../../add_on/scriptmath/scriptmathcomplex.cpp
-        ../../../../add_on/scriptstdstring/scriptstdstring.cpp
-        ../../../../add_on/scriptstdstring/scriptstdstring_utils.cpp
-        ../../../../add_on/serializer/serializer.cpp
-        ../../../../add_on/weakref/weakref.cpp
         )
 target_link_libraries(test_feature Angelscript::angelscript)
 target_include_directories(test_feature PRIVATE Angelscript::angelscript)
