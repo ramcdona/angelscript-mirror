@@ -1,7 +1,7 @@
 #include "utils.h"
-#include "../../add_on/scripthandle/scripthandle.h"
-#include "../../add_on/scriptmath/scriptmathcomplex.h"
-#include "../../../add_on/scriptbuilder/scriptbuilder.h"
+#include "scripthandle.h"
+#include "scriptmathcomplex.h"
+#include "scriptbuilder.h"
 #include <iostream>
 
 using namespace std;

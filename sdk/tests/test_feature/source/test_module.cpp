@@ -1,5 +1,5 @@
 #include "utils.h"
-#include "../../add_on/scriptbuilder/scriptbuilder.h"
+#include "scriptbuilder.h"
 
 using namespace std;
 

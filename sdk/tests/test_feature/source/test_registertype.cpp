@@ -1,6 +1,7 @@
 #include "utils.h"
-#include "../../../add_on/scriptdictionary/scriptdictionary.h"
-#include "../../../add_on/scriptmath/scriptmathcomplex.h"
+#include "scriptdictionary.h"
+#include "scriptmathcomplex.h"
+
 #ifndef __clang__
 #include <malloc.h> // gnuc: memalign
 #else

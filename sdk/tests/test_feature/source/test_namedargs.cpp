@@ -1,5 +1,5 @@
 #include "utils.h"
-#include "../../add_on/scriptmath/scriptmathcomplex.h"
+#include "scriptmathcomplex.h"
 
 using namespace std;
 

@@ -1,7 +1,7 @@
 
 #include <stdarg.h>
 #include "utils.h"
-#include "../../add_on/scriptany/scriptany.h"
+#include "scriptany.h"
 
 namespace TestDebug
 {
