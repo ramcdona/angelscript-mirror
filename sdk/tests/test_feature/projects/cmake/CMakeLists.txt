@@ -1,4 +1,10 @@
+cmake_minimum_required(VERSION 3.4)
+
 project(test_feature)
+
+find_package(Threads)
+
+find_package(Angelscript CONFIG REQUIRED)
 
 add_executable(
         test_feature
@@ -183,7 +189,7 @@ add_executable(
         ../../../../add_on/serializer/serializer.cpp
         ../../../../add_on/weakref/weakref.cpp
         )
-target_link_libraries(test_feature angelscript)
-target_include_directories(test_feature PRIVATE ../../../../angelscript/include)
+target_link_libraries(test_feature Angelscript::angelscript)
+target_include_directories(test_feature PRIVATE Angelscript::angelscript)
 set_target_properties(test_feature PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/../../bin)
 set_target_properties(test_feature PROPERTIES CXX_STANDARD 11)
