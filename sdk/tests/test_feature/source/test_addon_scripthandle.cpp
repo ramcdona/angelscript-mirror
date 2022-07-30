@@ -107,14 +107,24 @@ bool Test()
 
 	// Test returning array of ref from application
 	// Reported by Cyprinus Carpio
+	SKIP_ON_MAX_PORT
 	{
 		engine = asCreateScriptEngine();
+#ifndef AS_MAX_PORTABILITY
 		engine->SetMessageCallback(asMETHOD(CBufferedOutStream, Callback), &bout, asCALL_THISCALL);
+#else
+		engine->SetMessageCallback(WRAP_MFN(CBufferedOutStream, Callback), &bout, asCALL_GENERIC);
+#endif
 		RegisterScriptHandle(engine);
 		RegisterScriptArray(engine, false);
 
+#ifndef AS_MAX_PORTABILITY
 		engine->RegisterGlobalFunction("void assert(bool)", asFUNCTION(Assert), asCALL_GENERIC);
 		engine->RegisterGlobalFunction("array<ref@> @getEntities(uint a)", asFUNCTION(getEntities), asCALL_CDECL);
+#else
+		engine->RegisterGlobalFunction("void assert(bool)", WRAP_FN(Assert), asCALL_GENERIC);
+		engine->RegisterGlobalFunction("array<ref@> @getEntities(uint a)", WRAP_FN(getEntities), asCALL_GENERIC);
+#endif
 		bout.buffer = "";
 
 		asIScriptModule* mod = engine->GetModule("test", asGM_ALWAYS_CREATE);

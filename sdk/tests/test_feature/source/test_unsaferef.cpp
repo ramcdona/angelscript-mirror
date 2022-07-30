@@ -133,14 +133,20 @@ bool Test()
 	// Test nested calls that return a camoflaged reference to a temporary object
 	// The compiler has no way of knowing the temporary object is being referenced
 	// https://www.gamedev.net/forums/topic/712250-temprary-object-lifetime-bug-or-feature/
+	SKIP_ON_MAX_PORT
 	{
 		engine = asCreateScriptEngine();
+#ifndef AS_MAX_PORTABILITY
 		engine->SetMessageCallback(asMETHOD(CBufferedOutStream, Callback), &bout, asCALL_THISCALL);
+#else
+		engine->SetMessageCallback(WRAP_MFN(CBufferedOutStream, Callback), &bout, asCALL_GENERIC);
+#endif
 		engine->SetEngineProperty(asEP_ALLOW_UNSAFE_REFERENCES, true);
 		bout.buffer = "";
 
 		engine->RegisterTypedef("int_ptr", "uint");
 		RegisterStdString(engine);
+#ifndef AS_MAX_PORTABILITY
 		engine->RegisterObjectMethod("string", "string toUtf8() const", asFUNCTION(toUtf8), asCALL_CDECL_OBJLAST);
 #ifdef AS_PTR_SIZE == 1
 		engine->RegisterObjectMethod("string", "uint get_cstr() const property", asFUNCTION(cstr), asCALL_CDECL_OBJLAST);
@@ -148,6 +154,16 @@ bool Test()
 #else
 		engine->RegisterObjectMethod("string", "uint64 get_cstr() const property", asFUNCTION(cstr), asCALL_CDECL_OBJLAST);
 		engine->RegisterGlobalFunction("int sqlite3_exec(uint, uint64)", asFUNCTION(sqlite3_exec), asCALL_CDECL);
+#endif
+#else
+		engine->RegisterObjectMethod("string", "string toUtf8() const", WRAP_FN(toUtf8), asCALL_GENERIC);
+#ifdef AS_PTR_SIZE == 1
+		engine->RegisterObjectMethod("string", "uint get_cstr() const property", WRAP_FN(cstr), asCALL_GENERIC);
+		engine->RegisterGlobalFunction("int sqlite3_exec(uint, uint)", WRAP_FN(sqlite3_exec), asCALL_GENERIC);
+#else
+		engine->RegisterObjectMethod("string", "uint64 get_cstr() const property", WRAP_FN(cstr), asCALL_GENERIC);
+		engine->RegisterGlobalFunction("int sqlite3_exec(uint, uint64)", WRAP_FN(sqlite3_exec), asCALL_GENERIC);
+#endif
 #endif
 
 		asIScriptModule *mod = engine->GetModule("test", asGM_ALWAYS_CREATE);
@@ -286,13 +302,20 @@ bool Test()
 	}
 
 	// Test chained operations with global variables and with unsafe ref turned on
+	SKIP_ON_MAX_PORT
 	{
 		engine = asCreateScriptEngine(ANGELSCRIPT_VERSION);
 		engine->SetEngineProperty(asEP_ALLOW_UNSAFE_REFERENCES, 1);
 		engine->SetEngineProperty(asEP_OPTIMIZE_BYTECODE, 1);
+#ifndef AS_MAX_PORTABILITY
 		engine->SetMessageCallback(asMETHOD(COutStream, Callback), &out, asCALL_THISCALL);
 
 		engine->RegisterGlobalFunction("void assert(bool)", asFUNCTION(Assert), asCALL_GENERIC);
+#else
+		engine->SetMessageCallback(WRAP_MFN(COutStream, Callback), &out, asCALL_GENERIC);
+
+		engine->RegisterGlobalFunction("void assert(bool)", WRAP_FN(Assert), asCALL_GENERIC);
+#endif
 		RegisterStdString_Generic(engine);
 
 		asIScriptModule *mod = engine->GetModule("test", asGM_ALWAYS_CREATE);
@@ -350,14 +373,23 @@ bool Test()
 	}
 
 	// Basic tests
+	SKIP_ON_MAX_PORT
 	{
 		engine = asCreateScriptEngine(ANGELSCRIPT_VERSION);
 		engine->SetEngineProperty(asEP_ALLOW_UNSAFE_REFERENCES, 1);
+#ifndef AS_MAX_PORTABILITY
 		engine->SetMessageCallback(asMETHOD(COutStream, Callback), &out, asCALL_THISCALL);
+#else
+		engine->SetMessageCallback(WRAP_MFN(COutStream, Callback), &out, asCALL_GENERIC);
+#endif
 		RegisterScriptArray(engine, true);
 		RegisterScriptString(engine);
 
+#ifndef AS_MAX_PORTABILITY
 		r = engine->RegisterGlobalFunction("void Assert(bool)", asFUNCTION(Assert), asCALL_GENERIC); assert(r >= 0);
+#else
+		r = engine->RegisterGlobalFunction("void Assert(bool)", WRAP_FN(Assert), asCALL_GENERIC); assert(r >= 0);
+#endif
 
 		asIScriptModule *mod = engine->GetModule(0, asGM_ALWAYS_CREATE);
 		const char *script1 =
@@ -405,9 +437,14 @@ bool Test()
 	}
 
 	// Passing a const value object to a function expecting a non-const ref
+	SKIP_ON_MAX_PORT
 	{
 		engine = asCreateScriptEngine();
+#ifndef AS_MAX_PORTABILITY
 		engine->SetMessageCallback(asMETHOD(CBufferedOutStream, Callback), &bout, asCALL_THISCALL);
+#else
+		engine->SetMessageCallback(WRAP_MFN(CBufferedOutStream, Callback), &bout, asCALL_GENERIC);
+#endif
 		bout.buffer = "";
 		engine->SetEngineProperty(asEP_ALLOW_UNSAFE_REFERENCES, true);
 		RegisterStdString(engine);

@@ -277,6 +277,7 @@ bool Test()
 
 	// Test IsVarInScope and GetAddresOfVar for registered value types when variable slot is reused in multiple scopes
 	// https://www.gamedev.net/forums/topic/712251-debugger-and-var-in-scope/
+	SKIP_ON_MAX_PORT
 	{
 		printBuffer = "";
 
@@ -285,10 +286,18 @@ bool Test()
 		RegisterStdString(engine);
 		RegisterScriptAny(engine);
 		engine->RegisterObjectType("foo", 4, asOBJ_VALUE | asOBJ_POD);
+#ifndef AS_MAX_PORTABILITY
 		engine->RegisterObjectMethod("foo", "foo &opAssign(int)", asFUNCTION(foo_opAssign), asCALL_CDECL_OBJLAST);
 
 		COutStream out;
 		engine->SetMessageCallback(asMETHOD(COutStream, Callback), &out, asCALL_THISCALL);
+#else
+		engine->RegisterObjectMethod("foo", "foo &opAssign(int)", WRAP_FN(foo_opAssign), asCALL_GENERIC);
+
+		COutStream out;
+		engine->SetMessageCallback(WRAP_MFN(COutStream, Callback), &out, asCALL_GENERIC);
+#endif
+
 		asIScriptModule* mod = engine->GetModule("Module1", asGM_ALWAYS_CREATE);
 		mod->AddScriptSection(":1",
 			"interface IUnknown {} \n"
@@ -316,8 +325,14 @@ bool Test()
 		mod->Build();
 
 		asIScriptContext* ctx = engine->CreateContext();
+#ifndef AS_MAX_PORTABILITY
 		ctx->SetLineCallback(asFUNCTION(LineCallback3), 0, asCALL_CDECL);
 		ctx->SetExceptionCallback(asFUNCTION(ExceptionCallback), 0, asCALL_CDECL);
+#else
+		ctx->SetLineCallback(WRAP_FN(LineCallback3), 0, asCALL_GENERIC);
+		ctx->SetExceptionCallback(WRAP_FN(ExceptionCallback), 0, asCALL_GENERIC);
+#endif
+
 		ctx->Prepare(mod->GetFunctionByDecl("void main()"));
 		int r = ctx->Execute();
 		if (r == asEXECUTION_EXCEPTION)
@@ -394,6 +409,7 @@ bool Test()
 
 	// Test IsVarInScope and GetAddresOfVar for registered value types
 	// https://www.gamedev.net/forums/topic/712251-debugger-and-var-in-scope/
+	SKIP_ON_MAX_PORT
 	{
 		printBuffer = "";
 
@@ -402,10 +418,18 @@ bool Test()
 		RegisterStdString(engine);
 		RegisterScriptAny(engine);
 		engine->RegisterObjectType("foo", 4, asOBJ_VALUE | asOBJ_POD);
+#ifndef AS_MAX_PORTABILITY
 		engine->RegisterObjectMethod("foo", "foo &opAssign(int)", asFUNCTION(foo_opAssign), asCALL_CDECL_OBJLAST);
 
 		COutStream out;
 		engine->SetMessageCallback(asMETHOD(COutStream, Callback), &out, asCALL_THISCALL);
+#else
+		engine->RegisterObjectMethod("foo", "foo &opAssign(int)", WRAP_FN(foo_opAssign), asCALL_GENERIC);
+
+		COutStream out;
+		engine->SetMessageCallback(WRAP_MFN(COutStream, Callback), &out, asCALL_GENERIC);
+#endif
+
 		asIScriptModule* mod = engine->GetModule("Module1", asGM_ALWAYS_CREATE);
 		mod->AddScriptSection(":1", 
 			"interface IUnknown {} \n"
@@ -429,8 +453,13 @@ bool Test()
 		mod->Build();
 
 		asIScriptContext* ctx = engine->CreateContext();
+#ifndef AS_MAX_PORTABILITY
 		ctx->SetLineCallback(asFUNCTION(LineCallback2), 0, asCALL_CDECL);
 		ctx->SetExceptionCallback(asFUNCTION(ExceptionCallback), 0, asCALL_CDECL);
+#else
+		ctx->SetExceptionCallback(WRAP_FN(ExceptionCallback), 0, asCALL_GENERIC);
+		ctx->SetLineCallback(WRAP_FN(LineCallback2), 0, asCALL_GENERIC);
+#endif
 		ctx->Prepare(mod->GetFunctionByDecl("void main()"));
 		int r = ctx->Execute();
 		if (r == asEXECUTION_EXCEPTION)

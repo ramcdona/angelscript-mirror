@@ -419,17 +419,27 @@ bool Test()
 
 	// Test registering olc::vec2d
 	// https://www.gamedev.net/forums/topic/712002-registering-a-template-struct/
+	SKIP_ON_MAX_PORT
 	{
 		engine = asCreateScriptEngine();
 		engine->SetMessageCallback(asMETHOD(CBufferedOutStream, Callback), &bout, asCALL_THISCALL);
 		bout.buffer = "";
 
+#ifndef AS_MAX_PORTABILITY
 		engine->RegisterGlobalFunction("void assert(bool)", asFUNCTION(Assert), asCALL_GENERIC);
 
 		r = engine->RegisterObjectType("vi2d", sizeof(olc::vi2d), asOBJ_VALUE | asOBJ_POD | asGetTypeTraits<olc::vi2d>());
 		r = engine->RegisterObjectBehaviour("vi2d", asBEHAVE_CONSTRUCT, "void f()", asFUNCTIONPR(v2d_Constructor_def<int>, (void*), void), asCALL_CDECL_OBJLAST);
 		r = engine->RegisterObjectBehaviour("vi2d", asBEHAVE_CONSTRUCT, "void f(int, int)", asFUNCTIONPR(v2d_Constructor<int>, (int, int, void*), void), asCALL_CDECL_OBJLAST);
 		r = engine->RegisterObjectBehaviour("vi2d", asBEHAVE_CONSTRUCT, "void f(const vi2d &in)", asFUNCTIONPR(v2d_Constructor_copy<int>, (const olc::v2d_generic<int>&, void*), void), asCALL_CDECL_OBJLAST);
+#else
+		engine->RegisterGlobalFunction("void assert(bool)", WRAP_FN(Assert), asCALL_GENERIC);
+
+		r = engine->RegisterObjectType("vi2d", sizeof(olc::vi2d), asOBJ_VALUE | asOBJ_POD | asGetTypeTraits<olc::vi2d>());
+		r = engine->RegisterObjectBehaviour("vi2d", asBEHAVE_CONSTRUCT, "void f()", WRAP_FN_PR(v2d_Constructor_def<int>, (void*), void), asCALL_GENERIC);
+		r = engine->RegisterObjectBehaviour("vi2d", asBEHAVE_CONSTRUCT, "void f(int, int)", WRAP_FN_PR(v2d_Constructor<int>, (int, int, void*), void), asCALL_GENERIC);
+		r = engine->RegisterObjectBehaviour("vi2d", asBEHAVE_CONSTRUCT, "void f(const vi2d &in)", WRAP_FN_PR(v2d_Constructor_copy<int>, (const olc::v2d_generic<int>&, void*), void), asCALL_GENERIC);
+#endif
 
 		r = engine->RegisterObjectProperty("vi2d", "int x", asOFFSET(olc::vi2d, x));
 		r = engine->RegisterObjectProperty("vi2d", "int y", asOFFSET(olc::vi2d, y));
