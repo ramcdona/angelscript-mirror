@@ -1,8 +1,8 @@
 #include "utils.h"
-#include "../../add_on/scriptmath/scriptmathcomplex.h"
-#include "../../add_on/scriptstdstring/scriptstdstring.h"
-#include "../../add_on/scriptarray/scriptarray.h"
-#include "../../add_on/scriptdictionary/scriptdictionary.h"
+#include "scriptmathcomplex.h"
+#include "scriptstdstring.h"
+#include "scriptarray.h"
+#include "scriptdictionary.h"
 
 using namespace std;
 

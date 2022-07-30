@@ -1,7 +1,7 @@
 #include "utils.h"
 #include "scriptmath3d.h"
-#include "../../add_on/scriptstdstring/scriptstdstring.h"
-#include "../../add_on/scripthelper/scripthelper.h"
+#include "scriptstdstring.h"
+#include "scripthelper.h"
 
 BEGIN_AS_NAMESPACE
 void RegisterStdString_Generic(asIScriptEngine *engine);

@@ -1,6 +1,6 @@
 #include "utils.h"
-#include "../../../add_on/scriptdictionary/scriptdictionary.h"
-#include "../../../add_on/scriptmath/scriptmathcomplex.h"
+#include "scriptdictionary.h"
+#include "scriptmathcomplex.h"
 #include <malloc.h> // gnuc: memalign
 
 // olc::vX2d - A generic 2D vector type

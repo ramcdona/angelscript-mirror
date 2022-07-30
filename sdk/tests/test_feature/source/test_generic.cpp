@@ -2,7 +2,7 @@
 #include <stdarg.h>
 #include "utils.h"
 #include <sstream>
-#include <../../add_on/autowrapper/aswrappedcall.h>
+#include <aswrappedcall.h>
 
 // From the scriptstdstring add-on
 BEGIN_AS_NAMESPACE
