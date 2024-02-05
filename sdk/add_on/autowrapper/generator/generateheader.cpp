@@ -16,8 +16,12 @@
 #include <stdio.h>
 #include <string>
 
+#ifndef MAX_ARGS
+#define MAX_ARGS 4
+#endif
+
 // Generate templates for up to this number of function parameters
-const int max_args = 4;
+const int max_args = MAX_ARGS;
 
 using namespace std;
 
