@@ -13,6 +13,37 @@ if(APPLE)
     option(BUILD_FRAMEWORK "Build Framework bundle for OSX" OFF)
 endif()
 
+option(AS_USE_NAMESPACE "Place the script engine in namespace AngelScript." OFF)
+if (AS_USE_NAMESPACE)
+    add_definitions(-DAS_USE_NAMESPACE=1)
+endif()
+
+# Set up some add-on compile time options.
+option(AS_USE_STLNAMES "Compile the scriptarray, scriptstdstring, and/or scriptdictionary add-ons with the pre-processor define AS_USE_STLNAMES=1 to register the methods with the same names as used by C++ STL" OFF)
+if (AS_USE_STLNAMES)
+    add_definitions(-DAS_USE_STLNAMES=1)
+endif()
+
+option(AS_USE_ACCESSORS "Compile the scriptarray and/or scriptstdstring add-ons with the pre-processor define AS_USE_ACCESSORS=1 to register length as a virtual property instead of the method length()." OFF)
+if (AS_USE_ACCESSORS)
+    add_definitions(-DAS_USE_ACCESSORS=1)
+endif()
+
+option(AS_NO_IMPL_OPS_WITH_STRING_AND_PRIMITIVE "Compile the scriptarray add-on with the pre-processor define AS_NO_IMPL_OPS_WITH_STRING_AND_PRIMITIVE=1 to disable the implicit operations with primitives that automatically formats the primitive values to strings." OFF)
+if (AS_NO_IMPL_OPS_WITH_STRING_AND_PRIMITIVE)
+    add_definitions(-DAS_NO_IMPL_OPS_WITH_STRING_AND_PRIMITIVE=1)
+endif()
+
+option(AS_NO_WRITE_OPS "Compile the scriptfile add-on with the pre-processor define AS_WRITE_OPS=0 to disable writing of files." OFF)
+if (AS_NO_WRITE_OPS)
+    add_definitions(-DAS_WRITE_OPS=0)
+endif()
+
+option(AS_NO_PROCESS_METADATA "Compile the scriptbuilder add-on with the pre-processor define AS_PROCESS_METADATA=0 to disable processing of metadata." OFF)
+if (AS_NO_PROCESS_METADATA)
+    add_definitions(-DAS_PROCESS_METADATA=0)
+endif()
+
 file(READ ../../include/angelscript.h ANGELSCRIPT_H)
 string(REGEX MATCH "#define ANGELSCRIPT_VERSION_STRING \"([0-9]*).([0-9]*).([0-9]*)" ANGELSCRIPT_VERSION_REGEX ${ANGELSCRIPT_H})
 set(ANGELSCRIPT_VERSION_MAJOR ${CMAKE_MATCH_1})
