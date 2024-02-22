@@ -144,6 +144,7 @@ add_executable(
         ../../source/testexecute32mixedargs.cpp
         ../../source/testexecute4args.cpp
         ../../source/testexecute4argsf.cpp
+        ../../source/testexecutedoublearrayargs.cpp
         ../../source/testexecutemixedargs.cpp
         ../../source/testexecutescript.cpp
         ../../source/testexecutestring.cpp

@@ -20,6 +20,7 @@ bool TestExecute2Args();
 bool TestExecute4Args();
 bool TestExecute4Argsf();
 bool TestExecute32Args();
+bool TestExecuteDoubleArrayArgs();
 bool TestExecuteMixedArgs();
 bool TestExecute32MixedArgs();
 bool TestExecuteThis32MixedArgs();
@@ -369,6 +370,7 @@ int allTests()
 		if( TestExecute2Args()            ) goto failed; else PRINTF("-- TestExecute2Args passed\n");
 		if( TestExecute4Args()            ) goto failed; else PRINTF("-- TestExecute4Args passed\n");
 		if( TestExecute4Argsf()           ) goto failed; else PRINTF("-- TestExecute4Argsf passed\n");
+		if( TestExecuteDoubleArrayArgs()  ) goto failed; else PRINTF("-- TestExecuteDoubleArrayArgs passed\n");
 		if( TestExecuteMixedArgs()        ) goto failed; else PRINTF("-- TestExecuteMixedArgs passed\n");
 		if( TestExecute32Args()           ) goto failed; else PRINTF("-- TestExecute32Args passed\n");
 		if( TestExecute32MixedArgs()      ) goto failed; else PRINTF("-- TestExecute32MixedArgs passed\n");
